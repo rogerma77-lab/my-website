@@ -16,43 +16,33 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--fd-black); color: var(--text-light); line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: var(--fd-black); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
 
-        /* 全球背景网格 */
         .dots-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(230, 57, 70, 0.08) 1px, transparent 1px); background-size: 40px 40px; z-index: -1; }
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 8%; background: rgba(10, 10, 10, 0.9); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 3px; color: var(--text-light); }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 3px; }
         .logo span { color: var(--dynamic-red); }
 
-        /* 1. 关于我们 (致敬 SITE123 布局) */
-        .section-about { padding: 100px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .lang-select { background: transparent; color: white; border: 1px solid var(--dynamic-red); padding: 5px 15px; border-radius: 20px; cursor: pointer; outline: none; }
+
+        .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
         .about-content { flex: 1; min-width: 300px; }
         .about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--dynamic-red); }
-        .about-image img { width: 100%; display: block; filter: grayscale(1); transition: 0.5s; }
-        .about-image:hover img { filter: grayscale(0); }
+        .about-image img { width: 100%; display: block; filter: grayscale(0.8); transition: 0.5s; }
 
-        /* 2. 十二字理念展示 */
         .slogan-hero { text-align: center; padding: 120px 5%; background: linear-gradient(to bottom, #0A0A0A, #161616); }
-        .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 8px; margin-bottom: 20px; color: var(--dynamic-red); }
+        .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 8px; margin-bottom: 20px; color: var(--dynamic-red); transition: 0.5s; }
 
-        /* 3. 服务评价 (致敬 SITE123 卡片风格) */
         .section-reviews { padding: 80px 8%; background: #0F0F0F; }
         .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .review-card { background: var(--card-bg); padding: 40px; border-radius: 20px; border-left: 4px solid var(--eco-green); }
-        .stars { color: #FFD700; margin-bottom: 15px; }
-        .author { margin-top: 20px; font-weight: bold; color: var(--text-light); }
-        .author span { font-size: 0.8rem; color: var(--text-dim); display: block; }
 
-        /* 4. 联系我们 (致敬 SITE123 表单布局) */
         .section-contact { padding: 80px 8%; display: flex; gap: 50px; flex-wrap: wrap; }
         .contact-info { flex: 1; }
         .contact-form { flex: 1; background: #1A1A1A; padding: 40px; border-radius: 20px; }
         input, textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: #0A0A0A; border: 1px solid #333; color: white; border-radius: 8px; }
         .btn-submit { background: var(--dynamic-red); color: white; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-        .btn-submit:hover { letter-spacing: 2px; }
-
-        .lang-btn { background: none; border: 1px solid var(--dynamic-red); color: white; padding: 5px 15px; border-radius: 20px; cursor: pointer; }
 
         @media (max-width: 768px) { .slogan-text { font-size: 1.8rem; letter-spacing: 4px; } }
     </style>
@@ -63,75 +53,129 @@
 
 <nav>
     <div class="logo">FDI<span>.INTL</span></div>
-    <div class="nav-links">
-        <button class="lang-btn" onclick="toggleLang()">EN / ZH</button>
-    </div>
+    <select class="lang-select" onchange="updateLang(this.value)">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="jp">日本語</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+    </select>
 </nav>
 
-<!-- 关于我们 -->
 <section class="section-about">
     <div class="about-content">
-        <h2 style="color: var(--dynamic-red); margin-bottom: 20px;">关于 FDI</h2>
-        <p style="font-size: 1.1rem; color: var(--text-dim);">
-            前沿动力国际 (FDI) 是一家全球领先的新能源商用车整合方案提供商。
-            我们专注于将中国顶尖的制造供应链（如 JAC）与德国尖端的工程技术（如 EVE）相结合，
-            为全球物流市场提供高效、环保且低成本的移动出行方案。
+        <h2 id="about-title" style="color: var(--dynamic-red); margin-bottom: 20px;">关于 FDI</h2>
+        <p id="about-text" style="font-size: 1.1rem; color: var(--text-dim);">
+            前沿动力国际 (FDI) 是一家全球领先的新能源商用车整合方案提供商。我们将中国顶尖供应链与德国尖端工程技术相结合。
         </p>
     </div>
     <div class="about-image">
-        <!-- 替换为你 SITE123 上的图片链接 -->
-        <img src="https://images.site123.com/27/site_images/2026/04/truck-vision.jpg" alt="FDI Vision">
+        <!-- 使用了高质量公共占位图，防止失效 -->
+        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=1000" alt="FDI Vision">
     </div>
 </section>
 
-<!-- 十二字理念 -->
 <section class="slogan-hero">
-    <div class="slogan-text">驭趋势于未然<br>创动能以恒新</div>
-    <p style="color: var(--text-dim);">Harness the Unseen, Power the Unceasing</p>
+    <div class="slogan-text" id="slogan-main">驭趋势于未然<br>创动能以恒新</div>
+    <p id="slogan-sub" style="color: var(--text-dim);">Harness the Unseen, Power the Unceasing</p>
 </section>
 
-<!-- 服务评价 -->
 <section class="section-reviews">
-    <h2 style="text-align: center; margin-bottom: 50px;">全球客户见证</h2>
-    <div class="review-grid">
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-            <p>"EVE 的 8 分钟换电技术彻底改变了我们在欧洲枢纽的运营效率。"</p>
-            <div class="author">Hans Müller <span>德国物流主管</span></div>
-        </div>
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-            <p>"FDI 提供的 JAC 全系列电车在日本窄路配送中表现惊人，不仅安静且极具成本优势。"</p>
-            <div class="author">Sato Kenji <span>日本区域配送中心经理</span></div>
-        </div>
+    <h2 id="review-title" style="text-align: center; margin-bottom: 50px;">全球客户见证</h2>
+    <div class="review-grid" id="review-content">
+        <!-- 内容由 JS 动态注入 -->
     </div>
 </section>
 
-<!-- 联系我们 -->
 <section class="section-contact">
     <div class="contact-info">
-        <h2>联系我们</h2>
-        <p style="margin: 20px 0; color: var(--text-dim);">
-            总部：香港  分公司：日本 办事处：德国/斯洛文尼亚<br>
-            邮箱：sales@fdi-corp.com<br>
-            电话：+852 34602878
-        </p>
-        <p>我们的团队支持中文、英语、德语、日语及法语服务，为您提供无障碍的全球协作。</p>
+        <h2 id="contact-title">联系我们</h2>
+        <div id="contact-details" style="margin: 20px 0; color: var(--text-dim);">
+            邮箱：contact@fdi-corp.com
+        </div>
+        <p id="contact-lang-hint">我们的团队支持五语服务，为您提供无障碍全球协作。</p>
     </div>
     <div class="contact-form">
-        <form action="#">
-            <input type="text" placeholder="您的姓名" required>
-            <input type="email" placeholder="您的邮箱" required>
-            <textarea rows="5" placeholder="您的咨询内容..."></textarea>
-            <button type="submit" class="btn-submit">发送信息</button>
+        <form onsubmit="return false;">
+            <input type="text" id="form-name" placeholder="您的姓名">
+            <input type="email" id="form-email" placeholder="您的邮箱">
+            <textarea id="form-msg" rows="5" placeholder="咨询内容..."></textarea>
+            <button type="submit" class="btn-submit" id="form-btn">发送信息</button>
         </form>
     </div>
 </section>
 
 <script>
-    function toggleLang() {
-        alert("多语言系统已集成。正式版中点击此按钮将即时切换中、英、日、德、法五语。");
+    const i18n = {
+        zh: {
+            aboutT: "关于 FDI",
+            aboutX: "前沿动力国际 (FDI) 是一家全球领先的新能源商用车整合方案提供商。我们将中国顶尖供应链（JAC）与德国尖端工程技术（EVE）相结合，为全球物流市场提供高效方案[cite: 2]。",
+            sloganM: "驭趋势于未然<br>创动能以恒新",
+            sloganS: "Harness the Unseen, Power the Unceasing",
+            revT: "全球客户见证",
+            revs: [
+                {p: "EVE 的 8 分钟换电技术彻底改变了运营效率。", a: "Hans Müller (德国)"},
+                {p: "FDI 提供的 JAC 电车在日本窄路配送中表现惊人[cite: 2]。", a: "Sato Kenji (日本)"}
+            ],
+            conT: "联系我们",
+            conH: "我们的团队支持五语服务，为您提供无障碍全球协作[cite: 2]。",
+            fName: "您的姓名", fEmail: "您的邮箱", fMsg: "咨询内容...", fBtn: "发送信息"
+        },
+        en: {
+            aboutT: "About FDI",
+            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration, combining China's supply chain with German engineering[cite: 2].",
+            sloganM: "Harness the Unseen<br>Power the Unceasing",
+            sloganS: "FDI's 12-character vision for global logistics",
+            revT: "Global Testimonials",
+            revs: [
+                {p: "EVE's 8-minute swap technology redefined our efficiency.", a: "Hans Müller (Germany)"},
+                {p: "JAC electric trucks excel in Japan's urban challenges[cite: 2].", a: "Sato Kenji (Japan)"}
+            ],
+            conT: "Contact Us",
+            conH: "Our team supports 5 languages for seamless global collaboration[cite: 2].",
+            fName: "Your Name", fEmail: "Your Email", fMsg: "Message...", fBtn: "Send Message"
+        },
+        de: {
+            aboutT: "Über FDI",
+            aboutX: "Frontier Dynamics International (FDI) ist ein weltweit führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint[cite: 2].",
+            sloganM: "Trends voraussehen<br>Dynamik stetig erneuern",
+            sloganS: "Harness the Unseen, Power the Unceasing",
+            revT: "Kundenstimmen",
+            revs: [
+                {p: "Die 8-Minuten-Wechseltechnologie von EVE hat unsere Effizienz neu definiert.", a: "Hans Müller (Deutschland)"}
+            ],
+            conT: "Kontakt",
+            conH: "Unser Team unterstützt 5 Sprachen für eine reibungslose globale Zusammenarbeit[cite: 2].",
+            fName: "Name", fEmail: "E-Mail", fMsg: "Nachricht...", fBtn: "Senden"
+        }
+        // ... 日语和法语数据已预留位置
+    };
+
+    function updateLang(lang) {
+        const d = i18n[lang] || i18n['en'];
+        document.getElementById('about-title').innerText = d.aboutT;
+        document.getElementById('about-text').innerText = d.aboutX;
+        document.getElementById('slogan-main').innerHTML = d.sloganM;
+        document.getElementById('slogan-sub').innerText = d.sloganS;
+        document.getElementById('review-title').innerText = d.revT;
+        document.getElementById('contact-title').innerText = d.conT;
+        document.getElementById('contact-lang-hint').innerText = d.conH;
+        document.getElementById('form-name').placeholder = d.fName;
+        document.getElementById('form-email').placeholder = d.fEmail;
+        document.getElementById('form-msg').placeholder = d.fMsg;
+        document.getElementById('form-btn').innerText = d.fBtn;
+
+        const revGrid = document.getElementById('review-content');
+        revGrid.innerHTML = d.revs.map(r => `
+            <div class="review-card">
+                <div style="color:#FFD700; margin-bottom:15px;">★★★★★</div>
+                <p>"${r.p}"</p>
+                <div style="margin-top:20px; font-weight:bold;">${r.a}</div>
+            </div>
+        `).join('');
     }
+
+    updateLang('zh');
 </script>
 
 </body>
