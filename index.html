@@ -1,22 +1,222 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDI CORP - 官方网站</title>
+    <title>FDI - Frontier Dynamics International</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f5f7fa; color: #333; }
-        .container { text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        h1 { color: #0070f3; margin-bottom: 10px; }
-        p { color: #666; }
-        .status { display: inline-block; padding: 5px 15px; background: #e6f7ff; color: #1890ff; border-radius: 20px; font-size: 14px; margin-top: 20px; }
+        :root {
+            --fd-black: #1A1A1A;
+            --dynamic-red: #E63946;
+            --eco-green: #2D6A4F;
+            --tech-gray: #2D2D2D;
+            --text-light: #F5F5F5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; background: var(--fd-black); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+
+        /* 像素圆点背景装饰 */
+        .dots-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(230, 57, 70, 0.05) 1px, transparent 1px); background-size: 30px 30px; z-index: -1; }
+
+        /* 导航栏 */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: rgba(26, 26, 26, 0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--tech-gray); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
+        .logo span { color: var(--dynamic-red); }
+        .lang-select { background: transparent; color: white; border: 1px solid var(--dynamic-red); padding: 5px 15px; border-radius: 20px; cursor: pointer; outline: none; }
+
+        /* 首屏 - 十二字理念 */
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 10%; position: relative; }
+        .hero-slogan { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: 4px; }
+        .hero-slogan .line { display: block; margin: 10px 0; }
+        .hero-sub { font-size: 1.2rem; color: #888; max-width: 800px; margin-bottom: 3rem; }
+        
+        /* 突破弧线装饰 */
+        .arc-path { position: absolute; bottom: 10%; width: 200px; height: 2px; background: var(--dynamic-red); animation: slide 2s infinite ease-in-out; }
+
+        /* 核心板块容器 */
+        .section { padding: 80px 10%; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; border-bottom: 2px solid var(--dynamic-red); display: inline-block; padding-bottom: 10px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        /* 产品/技术卡片 */
+        .card { background: var(--tech-gray); padding: 30px; border-radius: 15px; transition: 0.3s; border-top: 5px solid var(--dynamic-red); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(230, 57, 70, 0.2); }
+        .card h3 { color: var(--dynamic-red); margin-bottom: 15px; font-size: 1.5rem; }
+        .badge { display: inline-block; padding: 3px 10px; background: var(--eco-green); border-radius: 5px; font-size: 0.8rem; margin-bottom: 10px; }
+
+        /* EVE 专项板块 */
+        .eve-banner { background: linear-gradient(45deg, #1a1a1a, #2d2d2d); border: 1px solid #444; padding: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+        .eve-stats { display: flex; gap: 40px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--dynamic-red); display: block; }
+
+        /* 联系表单 */
+        .contact-box { background: white; color: var(--fd-black); padding: 40px; border-radius: 20px; max-width: 600px; margin: 0 auto; }
+        .btn { background: var(--dynamic-red); color: white; padding: 15px 40px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn:hover { opacity: 0.9; transform: scale(1.05); }
+
+        @keyframes slide { 0% { transform: scaleX(0); transform-origin: left; } 50% { transform: scaleX(1); transform-origin: left; } 50.1% { transform: scaleX(1); transform-origin: right; } 100% { transform: scaleX(0); transform-origin: right; } }
+        @media (max-width: 768px) { .hero-slogan { font-size: 2rem; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>FDI-CORP</h1>
-        <p>您的网站已通过 Cloudflare Pages 成功部署</p>
-        <div class="status">● 运行中</div>
+
+<div class="dots-bg"></div>
+
+<nav>
+    <div class="logo">FD<span>I</span></div>
+    <select class="lang-select" onchange="updateLang(this.value)">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="jp">日本語</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+    </select>
+</nav>
+
+<section class="hero">
+    <div class="hero-slogan" id="slogan-box">
+        <span class="line">驭趋势于未然</span>
+        <span class="line">创动能以恒新</span>
     </div>
+    <p class="hero-sub" id="hero-sub">前沿动力国际：以前瞻性视野开拓技术边疆，驱动全球产业进步。</p>
+    <div class="arc-path"></div>
+</section>
+
+<section class="section">
+    <div style="text-align: center;"><h2 class="section-title" id="eve-title">EVE 德国工程先锋</h2></div>
+    <div class="eve-banner">
+        <div>
+            <h3 style="color: var(--dynamic-red); font-size: 1.8rem;">Milerental.com</h3>
+            <p id="eve-intro">我们不卖卡车，我们卖无忧的移动出行服务。全包式租赁模式，引领物流革命。</p>
+        </div>
+        <div class="eve-stats">
+            <div class="stat-item"><span class="stat-value">700kW</span><span id="stat-power">峰值功率</span></div>
+            <div class="stat-item"><span class="stat-value">8 min</span><span id="stat-swap">极速换电</span></div>
+            <div class="stat-item"><span class="stat-value">800km+</span><span id="stat-range">续航里程</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div style="text-align: center;"><h2 class="section-title" id="jac-title">JAC 制造基石</h2></div>
+    <div class="grid-container">
+        <div class="card">
+            <span class="badge">City Logistics</span>
+            <h3>E-VAN</h3>
+            <p id="van-desc">纯电末端配送专家，适应日本、欧洲窄路环境。</p>
+        </div>
+        <div class="card">
+            <span class="badge">Middle-mile</span>
+            <h3>3.5T - 7.5T Truck</h3>
+            <p id="light-desc">城市配送中坚，配备全套 ADAS 安全驾驶系统。</p>
+        </div>
+        <div class="card">
+            <span class="badge">Heavy Duty</span>
+            <h3>9T GVW Truck</h3>
+            <p id="heavy-desc">高载重能力，专为区域仓储转运设计。</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="contact" style="background: rgba(255,255,255,0.05);">
+    <div class="contact-box">
+        <h2 style="margin-bottom: 20px;" id="contact-title">全球业务垂询</h2>
+        <p style="margin-bottom: 30px;">无论您在加拿大、墨西哥还是日本，我们的专家团队将为您提供一站式 NEV 方案。</p>
+        <a href="mailto:contact@fdi-corp.com" class="btn" id="btn-text">立即获取方案</a>
+    </div>
+</section>
+
+<script>
+    const langData = {
+        zh: {
+            slogan: '<span class="line">驭趋势于未然</span><span class="line">创动能以恒新</span>',
+            sub: '前沿动力国际：以前瞻性视野开拓技术边疆，驱动全球产业进步。',
+            eveT: 'EVE 德国工程先锋',
+            eveI: '我们不卖卡车，我们卖无忧的移动出行服务。全包式租赁模式，引领物流革命。',
+            pwr: '峰值功率', swp: '极速换电', rng: '续航里程',
+            jacT: 'JAC 制造基石',
+            van: '纯电末端配送专家，适应日本、欧洲窄路环境。',
+            light: '城市配送中坚，配备全套 ADAS 安全驾驶系统。',
+            heavy: '高载重能力，专为区域仓储转运设计。',
+            ctTitle: '全球业务垂询', btn: '立即获取方案'
+        },
+        en: {
+            slogan: '<span class="line">Harness the Unseen</span><span class="line">Power the Unceasing</span>',
+            sub: 'FDI: Pioneering technical frontiers with foresight, driving global industry progress.',
+            eveT: 'EVE German Engineering',
+            eveI: 'We don’t sell trucks, we sell worry-free mobility. Milerental models for a logistic revolution.',
+            pwr: 'Peak Power', swp: 'Battery Swap', rng: 'Range',
+            jacT: 'JAC Production Base',
+            van: 'E-VAN: Last-mile delivery expert for urban challenges.',
+            light: '3.5T-7.5T: The backbone of sustainable city logistics.',
+            heavy: '9T GVW: High payload for regional distribution hubs.',
+            ctTitle: 'Global Inquiry', btn: 'Get Solutions Now'
+        },
+        jp: {
+            slogan: '<span class="line">トレンドを未然に御し</span><span class="line">絶え間なき動力を創る</span>',
+            sub: 'FDI: 先見性を持って技術のフロンティアを切り拓き、世界の産業発展を牽引します。',
+            eveT: 'EVE ドイツの革新技術',
+            eveI: 'トラックを売るのではなく、安心なモビリティを提供します。Milerentalで物流革命を。',
+            pwr: '出力', swp: '急速交換', rng: '航続距離',
+            jacT: 'JAC 製造拠点',
+            van: 'E-VAN: 都市部の狭い道路に最適なラストワンマイル配送。',
+            light: '中型EV: 都市配送の主力、ADAS安全システム搭載。',
+            heavy: '大型EV: 拠点間輸送に特化した高積載モデル。',
+            ctTitle: 'お問い合わせ', btn: 'ソリューションを入手'
+        },
+        de: {
+            slogan: '<span class="line">Trends voraussehen</span><span class="line">Dynamik stetig erneuern</span>',
+            sub: 'FDI: Mit Weitblick technologische Grenzen erschließen und Fortschritt vorantreiben.',
+            eveT: 'EVE Deutsche Ingenieurskunst',
+            eveI: 'Wir verkaufen keine Lkw, sondern sorgenfreie Mobilität. Milerental für eine Logistik-Revolution.',
+            pwr: 'Leistung', swp: 'Akku-Wechsel', rng: 'Reichweite',
+            jacT: 'JAC Produktionsbasis',
+            van: 'E-VAN: Experte für die letzte Meile im urbanen Raum.',
+            light: '3.5T-7.5T: Das Rückgrat der grünen City-Logistik.',
+            heavy: '9T GVW: Hohe Nutzlast für regionale Verteilzentren.',
+            ctTitle: 'Globale Anfrage', btn: 'Jetzt anfragen'
+        },
+        fr: {
+            slogan: '<span class="line">Maîtriser l’invisible</span><span class="line">Propulser l’infini</span>',
+            sub: 'FDI : Pionnier des frontières techniques avec vision, moteur du progrès industriel.',
+            eveT: 'EVE Excellence Allemande',
+            eveI: 'Nous ne vendons pas des camions, mais une mobilité sans souci. La révolution Milerental.',
+            pwr: 'Puissance', swp: 'Batterie Swap', rng: 'Autonomie',
+            jacT: 'Base de Production JAC',
+            van: 'E-VAN : L’expert du dernier kilomètre pour les centres urbains.',
+            light: '3.5T-7.5T : Le pilier de la logistique urbaine durable.',
+            heavy: '9T GVW : Charge utile élevée pour le transport régional.',
+            ctTitle: 'Contact Global', btn: 'Obtenir une solution'
+        }
+    };
+
+    function updateLang(lang) {
+        const d = langData[lang];
+        document.getElementById('slogan-box').innerHTML = d.slogan;
+        document.getElementById('hero-sub').innerText = d.sub;
+        document.getElementById('eve-title').innerText = d.eveT;
+        document.getElementById('eve-intro').innerText = d.eveI;
+        document.getElementById('stat-power').innerText = d.pwr;
+        document.getElementById('stat-swap').innerText = d.swp;
+        document.getElementById('stat-range').innerText = d.rng;
+        document.getElementById('jac-title').innerText = d.jacT;
+        document.getElementById('van-desc').innerText = d.van;
+        document.getElementById('light-desc').innerText = d.light;
+        document.getElementById('heavy-desc').innerText = d.heavy;
+        document.getElementById('contact-title').innerText = d.ctTitle;
+        document.getElementById('btn-text').innerText = d.btn;
+    }
+
+    // 默认识别
+    const navLang = navigator.language.split('-')[0];
+    if(langData[navLang]) {
+        document.querySelector('.lang-select').value = navLang;
+        updateLang(navLang);
+    }
+</script>
+
 </body>
 </html>
