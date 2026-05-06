@@ -34,8 +34,30 @@
         .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
         .about-content { flex: 1; min-width: 300px; }
         .about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--dynamic-red); }
-        .about-image img { width: 100%; display: block; filter: grayscale(0.8); transition: 0.5s; }
+        .about-image img { 
+    width: 100%; 
+    display: block; 
+    /* 1. 降低一点点饱和度，让白色背景不那么刺眼 */
+    filter: grayscale(0.2) brightness(1.1); 
+    transition: 0.5s;
+    
+    /* 2. 透明度微调，让它和深色背景产生呼吸感 */
+    opacity: 0.9;
 
+    /* 3. 核心处理：渐变蒙版，让图片的左右和底部边缘“消失”在黑色背景里 */
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%),
+                linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%),
+                        linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+}
+
+/* 鼠标悬停时恢复亮度和对比度，产生交互感 */
+.about-image:hover img {
+    filter: grayscale(0) brightness(1.2);
+    opacity: 1;
+}
         .slogan-hero { text-align: center; padding: 120px 5%; background: linear-gradient(to bottom, #0A0A0A, #161616); }
         .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 8px; margin-bottom: 20px; color: var(--dynamic-red); transition: 0.5s; }
 
