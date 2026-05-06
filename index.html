@@ -63,37 +63,30 @@
     </select>
 </nav>
 
-<!-- 关于我们 -->
 <section class="section-about">
     <div class="about-content">
-        <h2 id="about-title" style="color: var(--dynamic-red); margin-bottom: 20px;">关于 FDI</h2>
+        <h2 id="about-title" style="color: var(--dynamic-red); margin-bottom: 20px;"></h2>
         <p id="about-text" style="font-size: 1.1rem; color: var(--text-dim);"></p>
     </div>
     <div class="about-image">
-        <!-- 注意：这里改成了你GitHub里的文件名，请确保文件名完全一致 -->
         <img src="review1.jpg" alt="FDI Vision">
     </div>
 </section>
 
-<!-- 十二字理念 -->
 <section class="slogan-hero">
     <div class="slogan-text" id="slogan-main"></div>
     <p id="slogan-sub" style="color: var(--text-dim);"></p>
 </section>
 
-<!-- 全球客户见证 -->
 <section class="section-reviews">
-    <h2 id="review-title" style="text-align: center; margin-bottom: 50px;">全球客户见证</h2>
-    <div class="review-grid" id="review-content">
-        <!-- 由 JavaScript 动态注入 -->
-    </div>
+    <h2 id="review-title" style="text-align: center; margin-bottom: 50px;"></h2>
+    <div class="review-grid" id="review-content"></div>
 </section>
 
-<!-- 联系我们 -->
 <section class="section-contact">
     <div class="contact-info">
-        <h2 id="contact-title">联系我们</h2>
-        <div style="margin: 20px 0; color: var(--text-dim);">邮箱：contact@fdi-corp.com</div>
+        <h2 id="contact-title"></h2>
+        <div style="margin: 20px 0; color: var(--text-dim);">Email: contact@fdi-corp.com</div>
         <p id="contact-lang-hint"></p>
     </div>
     <div class="contact-form">
@@ -124,7 +117,7 @@
         },
         en: {
             aboutT: "About FDI",
-            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration.",
+            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration, combining China's supply chain with German engineering.",
             sloganM: "Harness the Unseen<br>Power the Unceasing",
             sloganS: "FDI's 12-character vision for global logistics",
             revT: "Global Testimonials",
@@ -135,6 +128,33 @@
             conT: "Contact Us",
             conH: "Our team supports 5 languages for seamless global collaboration.",
             fName: "Your Name", fEmail: "Your Email", fMsg: "Message...", fBtn: "Send Message"
+        },
+        jp: {
+            aboutT: "FDIについて",
+            aboutX: "Frontier Dynamics International (FDI) は、中国のサプライチェーンとドイツのエンジニアリング技術を融合させた、次世代商用電気自動車のグローバルリーダーです。",
+            sloganM: "トレンドを未然に御し<br>絶え間なき動力を創る",
+            sloganS: "Harness the Unseen, Power the Unceasing",
+            revT: "お客様の声",
+            revs: [
+                {p: "EVEの8分間バッテリー交換技術は、物流の効率を劇的に向上させました。", a: "Hans Müller (ドイツ)", img: "review1.jpg"},
+                {p: "JACのEVトラックは日本の狭い道路でも優れた性能を発揮します。", a: "佐藤 健二 (日本)", img: "review1.jpg"}
+            ],
+            conT: "お問い合わせ",
+            conH: "当社のチームは5ヶ国語に対応しており、グローバルなビジネスを強力にサポートします。",
+            fName: "お名前", fEmail: "メールアドレス", fMsg: "お問い合わせ内容...", fBtn: "送信する"
+        },
+        de: {
+            aboutT: "Über FDI",
+            aboutX: "Frontier Dynamics International (FDI) ist ein weltweit führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint.",
+            sloganM: "Trends voraussehen<br>Dynamik stetig erneuern",
+            sloganS: "Harness the Unseen, Power the Unceasing",
+            revT: "Kundenstimmen",
+            revs: [
+                {p: "Die 8-Minuten-Wechseltechnologie von EVE hat unsere Effizienz neu definiert.", a: "Hans Müller (Deutschland)", img: "review1.jpg"}
+            ],
+            conT: "Kontakt",
+            conH: "Unser Team unterstützt 5 Sprachen für eine reibungslose globale Zusammenarbeit.",
+            fName: "Name", fEmail: "E-Mail", fMsg: "Nachricht...", fBtn: "Senden"
         }
     };
 
@@ -165,7 +185,10 @@
         `).join('');
     }
 
-    updateLang('zh');
+    // 自动检测浏览器语言
+    const initialLang = i18n[navigator.language.split('-')[0]] ? navigator.language.split('-')[0] : 'zh';
+    document.querySelector('.lang-select').value = initialLang;
+    updateLang(initialLang);
 </script>
 
 </body>
