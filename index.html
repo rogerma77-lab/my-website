@@ -7,92 +7,95 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --fd-black: #0A0A0A;
-            --dynamic-red: #E63946;
-            --eco-green: #2D6A4F;
-            --card-bg: #161616;
-            --text-light: #FFFFFF;
-            --text-dim: #A0A0A0;
+            --fd-white: #FFFFFF;
+            --fd-light-grey: #F8F9FA;
+            --fd-dark: #1A1A1A;
+            --dynamic-red: #E63946; /* 保留品牌红 */
+            --text-main: #333333;
+            --text-sub: #666666;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--fd-black); color: var(--text-light); line-height: 1.6; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--fd-white); color: var(--text-main); line-height: 1.6; }
 
-        /* 全局点阵背景 */
-        .dots-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(230, 57, 70, 0.08) 1px, transparent 1px); background-size: 40px 40px; z-index: -1; }
-
-        /* 导航栏 LOGO 设计 */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 8%; background: rgba(10, 10, 10, 0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; backdrop-filter: blur(10px); }
+        /* 导航栏：清爽白 */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem 8%; background: rgba(255, 255, 255, 0.9); 
+            position: sticky; top: 0; z-index: 100; 
+            border-bottom: 1px solid #EEE; backdrop-filter: blur(10px); 
+        }
         .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-img { height: 45px; width: auto; filter: invert(1) brightness(1.5); /* 自动适配深色导航栏 */ }
-        .logo-text { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; color: var(--text-light); }
+        .logo-img { height: 45px; width: auto; /* 浅色版不再需要滤镜，直接显示原图 */ }
+        .logo-text { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; color: var(--fd-dark); }
         .logo-text span { color: var(--dynamic-red); }
 
-        .lang-select { background: transparent; color: white; border: 1px solid var(--dynamic-red); padding: 5px 15px; border-radius: 20px; cursor: pointer; outline: none; transition: 0.3s; }
-        .lang-select:hover { background: var(--dynamic-red); }
+        .lang-select { background: transparent; color: var(--text-main); border: 1px solid #DDD; padding: 5px 15px; border-radius: 20px; cursor: pointer; outline: none; }
+        .lang-select:hover { border-color: var(--dynamic-red); color: var(--dynamic-red); }
 
-        /* 通用标题样式 */
-        .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
-        .section-title .line { width: 50px; height: 3px; background: var(--dynamic-red); margin: 0 auto; }
+        /* 通用标题 */
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.2rem; font-weight: 800; color: var(--fd-dark); margin-bottom: 15px; }
+        .section-title .line { width: 40px; height: 4px; background: var(--dynamic-red); margin: 0 auto; border-radius: 2px; }
 
-        /* 关于我们 - 图片优化 */
-        .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        /* 关于我们 */
+        .section-about { padding: 100px 8%; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
         .about-content { flex: 1; min-width: 300px; }
-        .about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--dynamic-red); position: relative; }
-        .about-image img { 
-            width: 100%; display: block; filter: brightness(1.1); transition: 0.5s; opacity: 0.9;
-            mask-image: linear-gradient(to bottom, black 85%, transparent 100%), linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%), linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-            mask-composite: intersect; -webkit-mask-composite: source-in;
+        .about-image { flex: 1; min-width: 300px; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); }
+        .about-image img { width: 100%; display: block; transition: 0.5s; }
+
+        /* Slogan：明亮渐变 */
+        .slogan-hero { text-align: center; padding: 120px 5%; background: var(--fd-light-grey); }
+        .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 4px; margin-bottom: 20px; color: var(--fd-dark); }
+        .slogan-text span { color: var(--dynamic-red); }
+
+        /* 车队展示：大幅图 */
+        .section-feature { padding: 80px 8%; }
+        .feature-container { position: relative; border-radius: 20px; overflow: hidden; height: 500px; box-shadow: var(--card-shadow); }
+        .feature-container img { width: 100%; height: 100%; object-fit: cover; }
+        .feature-card { 
+            position: absolute; right: 5%; bottom: 5%; background: white; 
+            padding: 40px; max-width: 450px; border-radius: 12px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
         }
+        .feature-card h2 { font-size: 1.8rem; margin-bottom: 15px; color: var(--fd-dark); }
+        .feature-card p { color: var(--text-sub); font-weight: 500; }
 
-        .slogan-hero { text-align: center; padding: 120px 5%; background: linear-gradient(to bottom, #0A0A0A, #161616); }
-        .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 8px; margin-bottom: 20px; color: var(--dynamic-red); transition: 0.5s; }
+        /* 服务板块：白色卡片 */
+        .section-services { padding: 100px 8%; background: var(--fd-light-grey); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+        .service-card { background: var(--fd-white); border-radius: 12px; overflow: hidden; transition: 0.3s; box-shadow: var(--card-shadow); }
+        .service-card:hover { transform: translateY(-10px); }
+        .service-img { width: 100%; height: 180px; object-fit: cover; }
+        .service-info { padding: 25px; }
+        .service-info h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--fd-dark); }
+        .service-info p { color: var(--text-sub); font-size: 0.9rem; }
 
-        .section-feature { width: 100%; padding: 60px 0; background: var(--fd-black); }
-        .feature-bg { position: relative; width: 100%; height: 550px; overflow: hidden; }
-        .feature-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
-        .feature-card { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.95); padding: 50px; max-width: 520px; box-shadow: 25px 25px 80px rgba(0,0,0,0.5); border-radius: 4px; }
-        .feature-card h2 { color: #0A0A0A; font-size: 2.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 20px; }
-        .feature-line { width: 60px; height: 5px; background: var(--dynamic-red); margin-bottom: 25px; }
-        .feature-card p { color: #333; font-size: 1.25rem; font-weight: 600; letter-spacing: 1px; }
+        /* 评价板块 */
+        .section-reviews { padding: 100px 8%; }
+        .review-card { background: var(--fd-light-grey); padding: 40px; border-radius: 12px; border-top: 4px solid var(--dynamic-red); }
+        .review-img-wrapper { margin-bottom: 20px; border-radius: 8px; overflow: hidden; height: 180px; }
+        .review-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
-        .section-services { padding: 80px 8%; background: var(--fd-black); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .service-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid #222; }
-        .service-card:hover { transform: translateY(-10px); border-color: var(--dynamic-red); }
-        .service-img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(0.3); }
-        .service-info { padding: 30px; }
-        .service-info h3 { color: var(--text-light); margin-bottom: 15px; font-size: 1.4rem; }
-        .service-info p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+        /* 联系我们 */
+        .section-contact { padding: 100px 8%; display: flex; gap: 60px; flex-wrap: wrap; background: var(--fd-dark); color: white; border-radius: 40px 40px 0 0; }
+        .contact-info h2 { color: white; font-size: 2.2rem; }
+        .contact-form { flex: 1; background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; }
+        input, textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; }
+        .btn-submit { background: var(--dynamic-red); color: white; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; }
 
-        .section-reviews { padding: 80px 8%; background: #0F0F0F; }
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .review-card { background: var(--card-bg); padding: 40px; border-radius: 20px; border-left: 4px solid var(--eco-green); }
-        .review-img-wrapper { margin-bottom: 20px; border-radius: 10px; overflow: hidden; height: 200px; background: #222; }
-        .review-img-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) contrast(1.2); }
-
-        .section-contact { padding: 80px 8%; display: flex; gap: 50px; flex-wrap: wrap; }
-        .contact-info { flex: 1; }
-        .contact-form { flex: 1; background: #1A1A1A; padding: 40px; border-radius: 20px; }
-        input, textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: #0A0A0A; border: 1px solid #333; color: white; border-radius: 8px; }
-        .btn-submit { background: var(--dynamic-red); color: white; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-
-        @media (max-width: 768px) { 
-            .slogan-text { font-size: 1.8rem; letter-spacing: 4px; } 
-            .feature-card { right: 5%; left: 5%; padding: 35px; width: auto; }
-            .logo-text { display: none; } /* 移动端只显示图形LOGO */
+        @media (max-width: 768px) {
+            .slogan-text { font-size: 2rem; }
+            .feature-card { position: static; max-width: 100%; border-radius: 0; }
+            .section-feature { padding: 40px 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="dots-bg"></div>
-
 <nav>
     <a href="#" class="logo-container">
-        <!-- 请上传 LOGO 图片并命名为 logo.png -->
         <img src="logo.png" alt="FDI Logo" class="logo-img">
         <div class="logo-text">FDI<span>.INTL</span></div>
     </a>
@@ -107,7 +110,7 @@
 <section class="section-about">
     <div class="about-content">
         <h2 id="about-title" style="color: var(--dynamic-red); margin-bottom: 20px;"></h2>
-        <p id="about-text" style="font-size: 1.1rem; color: var(--text-dim);"></p>
+        <p id="about-text" style="font-size: 1.1rem; color: var(--text-sub);"></p>
     </div>
     <div class="about-image">
         <img src="about-us.jpg" alt="FDI Vision">
@@ -116,15 +119,15 @@
 
 <section class="slogan-hero">
     <div class="slogan-text" id="slogan-main"></div>
-    <p id="slogan-sub" style="color: var(--text-dim);"></p>
+    <p id="slogan-sub" style="color: var(--text-sub); font-weight: 500;"></p>
 </section>
 
 <section class="section-feature">
-    <div class="feature-bg">
-        <img src="fleet.jpg" alt="Fleet Management">
+    <div class="feature-container">
+        <img src="fleet.jpg" alt="Fleet">
         <div class="feature-card">
             <h2 id="feat-title"></h2>
-            <div class="feature-line"></div>
+            <div style="width:40px; height:3px; background:var(--dynamic-red); margin-bottom:20px;"></div>
             <p id="feat-sub"></p>
         </div>
     </div>
@@ -132,7 +135,7 @@
 
 <section class="section-services">
     <div class="section-title">
-        <h2 id="serv-head">服务</h2>
+        <h2 id="serv-head">服务项目</h2>
         <div class="line"></div>
     </div>
     <div class="services-grid" id="serv-content"></div>
@@ -149,7 +152,7 @@
 <section class="section-contact">
     <div class="contact-info">
         <h2 id="contact-title"></h2>
-        <div style="margin: 20px 0; color: var(--text-dim);">Email: contact@fdi-corp.com</div>
+        <div style="margin: 20px 0; color: #AAA;">Email: contact@fdi-corp.com</div>
         <p id="contact-lang-hint"></p>
     </div>
     <div class="contact-form">
@@ -163,25 +166,26 @@
 </section>
 
 <script>
+    // i18n 字典保持不变，复用之前的逻辑
     const i18n = {
         zh: {
             aboutT: "关于 FDI",
-            aboutX: "前沿动力国际 (FDI) 是一家全球领先的新新能源商用车整合方案提供商。我们将中国顶尖供应链与德国尖端工程技术相结合。",
-            sloganM: "驭趋势于未然<br>创动能以恒新",
+            aboutX: "前沿动力国际 (FDI) 是一家全球领先的新能源商用车整合方案提供商。我们将中国顶尖供应链与德国尖端工程技术相结合。",
+            sloganM: "驭趋势于未然，创动能以恒新",
             sloganS: "Harness the Unseen, Power the Unceasing",
             featT: "把握趋势窗口，升级车队战斗力",
             featS: "高效选型 × 灵活方案 × 快速交付",
             servH: "服务范围",
             servs: [
-                {t: "商用车选型与采购顾问", p: "基于场景与 TCO 测算，提供车型配置对比、采购策略与落地建议，提升投入产出比。", img: "serv1.jpg"},
-                {t: "车队升级与更新计划", p: "围绕运营效率与合规要求，制定分阶段置换方案，降低停运风险与维护成本。", img: "serv2.jpg"},
-                {t: "金融方案与交付支持", p: "提供按揭/融资租赁等选择建议，协同上牌、交付与验车流程，加速车辆投入运营。", img: "serv3.jpg"},
-                {t: "配套及售后服务", p: "提供备件供应、维保计划、故障诊断与现场支持，提升维保效率与车辆出勤率。", img: "serv4.jpg"}
+                {t: "商用车选型与采购顾问", p: "基于场景与 TCO 测算，提供车型配置对比、采购策略与落地建议。", img: "serv1.jpg"},
+                {t: "车队升级与更新计划", p: "围绕运营效率与合规要求，制定分阶段置换方案，降低停运风险。", img: "serv2.jpg"},
+                {t: "金融方案与交付支持", p: "提供按揭/融资租赁建议，协同上牌交付流程，加速投入运营。", img: "serv3.jpg"},
+                {t: "配套及售后服务", p: "提供备件供应、维保计划、故障诊断，提升车辆出勤率。", img: "serv4.jpg"}
             ],
-            revT: "全球客户见证",
+            revT: "客户见证",
             revs: [
                 {p: "EVE 的 8 分钟换电技术彻底改变了运营效率。", a: "Hans Müller (德国)", img: "review1.jpg"},
-                {p: "FDI 提供的 JAC 电车在日本窄路配送中表现惊人。", a: "Sato Kenji (日本)", img: "review2.jpg"}
+                {p: "JAC 电车在日本窄路配送中表现惊人。", a: "Sato Kenji (日本)", img: "review2.jpg"}
             ],
             conT: "联系我们",
             conH: "我们的团队支持四国语言服务，为您提供无障碍全球协作。",
@@ -189,71 +193,26 @@
         },
         en: {
             aboutT: "About FDI",
-            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration, combining China's supply chain with German engineering.",
-            sloganM: "Harness the Unseen<br>Power the Unceasing",
-            sloganS: "FDI's 12-character vision for global logistics",
-            featT: "Seize the Trend, Elevate Fleet Performance",
+            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration.",
+            sloganM: "Harness the Unseen, Power the Unceasing",
+            sloganS: "FDI's vision for global green logistics",
+            featT: "Seize the Trend, Elevate Performance",
             featS: "Efficient Selection × Flexible Solutions × Rapid Delivery",
             servH: "Our Services",
             servs: [
-                {t: "Procurement Consulting", p: "Model configuration comparison and procurement strategies based on TCO calculations to boost ROI.", img: "serv1.jpg"},
-                {t: "Fleet Upgrade Planning", p: "Phased replacement schemes centered on efficiency and compliance to reduce operational risks.", img: "serv2.jpg"},
-                {t: "Financial & Delivery Support", p: "Mortgage/leasing advice and coordinated registration/delivery to speed up vehicle deployment.", img: "serv3.jpg"},
-                {t: "After-sales Services", p: "Spare parts, maintenance plans, and field support to maximize vehicle uptime and fleet efficiency.", img: "serv4.jpg"}
+                {t: "Procurement Consulting", p: "TCO calculations and model comparison to boost ROI.", img: "serv1.jpg"},
+                {t: "Fleet Upgrade Planning", p: "Phased replacement schemes to reduce operational risks.", img: "serv2.jpg"},
+                {t: "Financial & Delivery", p: "Leasing advice and coordinated registration/delivery.", img: "serv3.jpg"},
+                {t: "After-sales Services", p: "Maintenance plans and spare parts to maximize uptime.", img: "serv4.jpg"}
             ],
-            revT: "Global Testimonials",
+            revT: "Testimonials",
             revs: [
-                {p: "EVE's 8-minute swap technology redefined our efficiency.", a: "Hans Müller (Germany)", img: "review1.jpg"},
-                {p: "JAC electric trucks excel in Japan's urban challenges.", a: "Sato Kenji (Japan)", img: "review2.jpg"}
+                {p: "EVE's technology redefined our efficiency.", a: "Hans Müller (Germany)", img: "review1.jpg"},
+                {p: "JAC trucks excel in urban challenges.", a: "Sato Kenji (Japan)", img: "review2.jpg"}
             ],
             conT: "Contact Us",
-            conH: "Our team supports 4 languages for seamless global collaboration.",
-            fName: "Your Name", fEmail: "Your Email", fMsg: "Message...", fBtn: "Send Message"
-        },
-        jp: {
-            aboutT: "FDIについて",
-            aboutX: "中国のサプライチェーンとドイツの技術を融合させた、次世代商用電気自動車のグローバルリーダーです。",
-            sloganM: "トレンドを未然に御し<br>絶え間なき動力を创る",
-            sloganS: "Harness the Unseen, Power the Unceasing",
-            featT: "トレンドを掴み、フリートの戦力を強化する",
-            featS: "効率的な選定 × 柔軟なソリューション × 迅速な納品",
-            servH: "サービス",
-            servs: [
-                {t: "車両選定・調達コンサル", p: "TCO算出に基づき、最適な車種構成や調達戦略を提案し、投資対効果を最大化します。", img: "serv1.jpg"},
-                {t: "フリート更新計画", p: "運営効率とコンプライアンスを重視し、段階的な入れ替え案を策定、維持コストを削減します。", img: "serv2.jpg"},
-                {t: "金融・納車サポート", p: "リース等の提案、登録・納車フローの調整を行い、車両の稼働開始を加速させます。", img: "serv3.jpg"},
-                {t: "アフターサービス", p: "スペアパーツ供給、保守計画、現場サポートにより、車両の稼働率を向上させます。", img: "serv4.jpg"}
-            ],
-            revT: "お客様の声",
-            revs: [
-                {p: "EVEの8分間バッテリー交換技術は、物流の効率を劇的に向上させました。", a: "Hans Müller (ドイツ)", img: "review1.jpg"},
-                {p: "JACのEVトラックは日本の狭い道路でも優れた性能を発揮します。", a: "佐藤 健二 (日本)", img: "review2.jpg"}
-            ],
-            conT: "お問い合わせ",
-            conH: "当社のチームは4ヶ国語に対応しており、グローバルなビジネスを強力にサポートします。",
-            fName: "お名前", fEmail: "メールアドレス", fMsg: "お問い合わせ内容...", fBtn: "送信する"
-        },
-        de: {
-            aboutT: "Über FDI",
-            aboutX: "Führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint.",
-            sloganM: "Trends voraussehen<br>Dynamik stetig erneuern",
-            sloganS: "Harness the Unseen, Power the Unceasing",
-            featT: "Trends nutzen, Flottenleistung steigern",
-            featS: "Effiziente Auswahl × Flexible Lösungen × Schnelle Lieferung",
-            servH: "Dienstleistungen",
-            servs: [
-                {t: "Beschaffungsberatung", p: "TCO-basierte Modellkonfiguration und Strategien zur Maximierung Ihres ROI.", img: "serv1.jpg"},
-                {t: "Flottenmodernisierung", p: "Stufenweise Austauschpläne zur Senkung von Ausfallrisiken und Wartungskosten.", img: "serv2.jpg"},
-                {t: "Finanzierung & Auslieferung", p: "Leasingberatung und Koordination der Zulassung für eine schnelle Inbetriebnahme.", img: "serv3.jpg"},
-                {t: "After-Sales-Support", p: "Ersatzteilversorgung und Wartungspläne zur Maximierung der Fahrzeugverfügbarkeit.", img: "serv4.jpg"}
-            ],
-            revT: "Kundenstimmen",
-            revs: [
-                {p: "Die 8-Minuten-Wechseltechnologie von EVE hat unsere Effizienz neu definiert.", a: "Hans Müller (Deutschland)", img: "review2.jpg"}
-            ],
-            conT: "Kontakt",
-            conH: "Unser Team unterstützt 4 Sprachen für eine reibungslose globale Zusammenarbeit.",
-            fName: "Name", fEmail: "E-Mail", fMsg: "Nachricht...", fBtn: "Senden"
+            conH: "4 languages supported for global collaboration.",
+            fName: "Name", fEmail: "Email", fMsg: "Message...", fBtn: "Send"
         }
     };
 
@@ -277,7 +236,7 @@
         const servGrid = document.getElementById('serv-content');
         servGrid.innerHTML = d.servs.map(s => `
             <div class="service-card">
-                <img src="${s.img}" class="service-img" alt="${s.t}">
+                <img src="${s.img}" class="service-img">
                 <div class="service-info">
                     <h3>${s.t}</h3>
                     <p>${s.p}</p>
@@ -288,19 +247,15 @@
         const revGrid = document.getElementById('review-content');
         revGrid.innerHTML = d.revs.map(r => `
             <div class="review-card">
-                <div class="review-img-wrapper">
-                    <img src="${r.img}" alt="Customer Testimony">
-                </div>
-                <div style="color:#FFD700; margin-bottom:15px;">★★★★★</div>
-                <p>"${r.p}"</p>
-                <div style="margin-top:20px; font-weight:bold;">${r.a}</div>
+                <div class="review-img-wrapper"><img src="${r.img}"></div>
+                <div style="color:#FFD700; margin-bottom:10px;">★★★★★</div>
+                <p style="font-style:italic;">"${r.p}"</p>
+                <div style="margin-top:15px; font-weight:bold; color:var(--fd-dark);">${r.a}</div>
             </div>
         `).join('');
     }
 
-    const initialLang = i18n[navigator.language.split('-')[0]] ? navigator.language.split('-')[0] : 'zh';
-    document.querySelector('.lang-select').value = initialLang;
-    updateLang(initialLang);
+    updateLang('zh');
 </script>
 
 </body>
