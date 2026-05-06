@@ -26,6 +26,11 @@
 
         .lang-select { background: transparent; color: white; border: 1px solid var(--dynamic-red); padding: 5px 15px; border-radius: 20px; cursor: pointer; outline: none; }
 
+        /* 通用标题样式 */
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-title .line { width: 50px; height: 3px; background: var(--dynamic-red); margin: 0 auto; }
+
         .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
         .about-content { flex: 1; min-width: 300px; }
         .about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--dynamic-red); }
@@ -34,7 +39,6 @@
         .slogan-hero { text-align: center; padding: 120px 5%; background: linear-gradient(to bottom, #0A0A0A, #161616); }
         .slogan-text { font-size: 3rem; font-weight: 800; letter-spacing: 8px; margin-bottom: 20px; color: var(--dynamic-red); transition: 0.5s; }
 
-        /* 新增：车队战斗力板块样式 */
         .section-feature { width: 100%; padding: 60px 0; background: var(--fd-black); }
         .feature-bg { position: relative; width: 100%; height: 550px; overflow: hidden; }
         .feature-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
@@ -42,6 +46,16 @@
         .feature-card h2 { color: #0A0A0A; font-size: 2.4rem; font-weight: 800; line-height: 1.3; margin-bottom: 20px; }
         .feature-line { width: 60px; height: 5px; background: var(--dynamic-red); margin-bottom: 25px; }
         .feature-card p { color: #333; font-size: 1.25rem; font-weight: 600; letter-spacing: 1px; }
+
+        /* 新增：服务板块样式 */
+        .section-services { padding: 80px 8%; background: var(--fd-black); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .service-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; transition: 0.3s; border: 1px solid #222; }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--dynamic-red); }
+        .service-img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(0.3); }
+        .service-info { padding: 30px; }
+        .service-info h3 { color: var(--text-light); margin-bottom: 15px; font-size: 1.4rem; }
+        .service-info p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
 
         .section-reviews { padding: 80px 8%; background: #0F0F0F; }
         .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
@@ -91,10 +105,8 @@
     <p id="slogan-sub" style="color: var(--text-dim);"></p>
 </section>
 
-<!-- 新增：业务核心展示部分 -->
 <section class="section-feature">
     <div class="feature-bg">
-        <!-- 请确保上传名为 fleet.jpg 的图片到 GitHub -->
         <img src="fleet.jpg" alt="Fleet Management">
         <div class="feature-card">
             <h2 id="feat-title"></h2>
@@ -104,8 +116,20 @@
     </div>
 </section>
 
+<!-- 新增：服务板块 (Services) -->
+<section class="section-services">
+    <div class="section-title">
+        <h2 id="serv-head">服务</h2>
+        <div class="line"></div>
+    </div>
+    <div class="services-grid" id="serv-content"></div>
+</section>
+
 <section class="section-reviews">
-    <h2 id="review-title" style="text-align: center; margin-bottom: 50px;"></h2>
+    <div class="section-title">
+        <h2 id="review-title"></h2>
+        <div class="line"></div>
+    </div>
     <div class="review-grid" id="review-content"></div>
 </section>
 
@@ -134,6 +158,13 @@
             sloganS: "Harness the Unseen, Power the Unceasing",
             featT: "把握趋势窗口，升级车队战斗力",
             featS: "高效选型 × 灵活方案 × 快速交付",
+            servH: "服务范围",
+            servs: [
+                {t: "商用车选型与采购顾问", p: "基于场景与 TCO 测算，提供车型配置对比、采购策略与落地建议，提升投入产出比。", img: "serv1.jpg"},
+                {t: "车队升级与更新计划", p: "围绕运营效率与合规要求，制定分阶段置换方案，降低停运风险与维护成本。", img: "serv2.jpg"},
+                {t: "金融方案与交付支持", p: "提供按揭/融资租赁等选择建议，协同上牌、交付与验车流程，加速车辆投入运营。", img: "serv3.jpg"},
+                {t: "配套及售后服务", p: "提供备件供应、维保计划、故障诊断与现场支持，提升维保效率与车辆出勤率。", img: "serv4.jpg"}
+            ],
             revT: "全球客户见证",
             revs: [
                 {p: "EVE 的 8 分钟换电技术彻底改变了运营效率。", a: "Hans Müller (德国)", img: "review1.jpg"},
@@ -150,6 +181,13 @@
             sloganS: "FDI's 12-character vision for global logistics",
             featT: "Seize the Trend, Elevate Fleet Performance",
             featS: "Efficient Selection × Flexible Solutions × Rapid Delivery",
+            servH: "Our Services",
+            servs: [
+                {t: "Procurement Consulting", p: "Model configuration comparison and procurement strategies based on TCO calculations to boost ROI.", img: "serv1.jpg"},
+                {t: "Fleet Upgrade Planning", p: "Phased replacement schemes centered on efficiency and compliance to reduce operational risks.", img: "serv2.jpg"},
+                {t: "Financial & Delivery Support", p: "Mortgage/leasing advice and coordinated registration/delivery to speed up vehicle deployment.", img: "serv3.jpg"},
+                {t: "After-sales Services", p: "Spare parts, maintenance plans, and field support to maximize vehicle uptime and fleet efficiency.", img: "serv4.jpg"}
+            ],
             revT: "Global Testimonials",
             revs: [
                 {p: "EVE's 8-minute swap technology redefined our efficiency.", a: "Hans Müller (Germany)", img: "review1.jpg"},
@@ -161,11 +199,18 @@
         },
         jp: {
             aboutT: "FDIについて",
-            aboutX: "Frontier Dynamics International (FDI) は、中国のサプライチェーンとドイツのエンジニアリング技術を融合させた、次世代商用電気自動車のグローバルリーダーです。",
+            aboutX: "中国のサプライチェーンとドイツの技術を融合させた、次世代商用電気自動車のグローバルリーダーです。",
             sloganM: "トレンドを未然に御し<br>絶え間なき動力を創る",
             sloganS: "Harness the Unseen, Power the Unceasing",
             featT: "トレンドを掴み、フリートの戦力を強化する",
             featS: "効率的な選定 × 柔軟なソリューション × 迅速な納品",
+            servH: "サービス",
+            servs: [
+                {t: "車両選定・調達コンサル", p: "TCO算出に基づき、最適な車種構成や調達戦略を提案し、投資対効果を最大化します。", img: "serv1.jpg"},
+                {t: "フリート更新計画", p: "運営効率とコンプライアンスを重視し、段階的な入れ替え案を策定、維持コストを削減します。", img: "serv2.jpg"},
+                {t: "金融・納車サポート", p: "リース等の提案、登録・納車フローの調整を行い、車両の稼働開始を加速させます。", img: "serv3.jpg"},
+                {t: "アフターサービス", p: "スペアパーツ供給、保守計画、現場サポートにより、車両の稼働率を向上させます。", img: "serv4.jpg"}
+            ],
             revT: "お客様の声",
             revs: [
                 {p: "EVEの8分間バッテリー交換技術は、物流の効率を劇的に向上させました。", a: "Hans Müller (ドイツ)", img: "review1.jpg"},
@@ -177,11 +222,18 @@
         },
         de: {
             aboutT: "Über FDI",
-            aboutX: "Frontier Dynamics International (FDI) ist ein weltweit führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint.",
+            aboutX: "Führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint.",
             sloganM: "Trends voraussehen<br>Dynamik stetig erneuern",
             sloganS: "Harness the Unseen, Power the Unceasing",
             featT: "Trends nutzen, Flottenleistung steigern",
             featS: "Effiziente Auswahl × Flexible Lösungen × Schnelle Lieferung",
+            servH: "Dienstleistungen",
+            servs: [
+                {t: "Beschaffungsberatung", p: "TCO-basierte Modellkonfiguration und Strategien zur Maximierung Ihres ROI.", img: "serv1.jpg"},
+                {t: "Flottenmodernisierung", p: "Stufenweise Austauschpläne zur Senkung von Ausfallrisiken und Wartungskosten.", img: "serv2.jpg"},
+                {t: "Finanzierung & Auslieferung", p: "Leasingberatung und Koordination der Zulassung für eine schnelle Inbetriebnahme.", img: "serv3.jpg"},
+                {t: "After-Sales-Support", p: "Ersatzteilversorgung und Wartungspläne zur Maximierung der Fahrzeugverfügbarkeit.", img: "serv4.jpg"}
+            ],
             revT: "Kundenstimmen",
             revs: [
                 {p: "Die 8-Minuten-Wechseltechnologie von EVE hat unsere Effizienz neu definiert.", a: "Hans Müller (Deutschland)", img: "review2.jpg"}
@@ -200,6 +252,7 @@
         document.getElementById('slogan-sub').innerText = d.sloganS;
         document.getElementById('feat-title').innerText = d.featT;
         document.getElementById('feat-sub').innerText = d.featS;
+        document.getElementById('serv-head').innerText = d.servH;
         document.getElementById('review-title').innerText = d.revT;
         document.getElementById('contact-title').innerText = d.conT;
         document.getElementById('contact-lang-hint').innerText = d.conH;
@@ -208,6 +261,19 @@
         document.getElementById('form-msg').placeholder = d.fMsg;
         document.getElementById('form-btn').innerText = d.fBtn;
 
+        // 更新服务板块内容
+        const servGrid = document.getElementById('serv-content');
+        servGrid.innerHTML = d.servs.map(s => `
+            <div class="service-card">
+                <img src="${s.img}" class="service-img" alt="${s.t}">
+                <div class="service-info">
+                    <h3>${s.t}</h3>
+                    <p>${s.p}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // 更新评价板块内容
         const revGrid = document.getElementById('review-content');
         revGrid.innerHTML = d.revs.map(r => `
             <div class="review-card">
