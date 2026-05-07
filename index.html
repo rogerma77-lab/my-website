@@ -1,3 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI - Frontier Dynamics International</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --fd-white: #FFFFFF;
+            --fd-light-grey: #F8F9FA;
+            --fd-dark: #111111;
+            --dynamic-red: #E63946;
+            --text-main: #2D2D2D;
+            --text-sub: #666666;
+            --card-shadow: 0 15px 45px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--fd-white); color: var(--text-main); overflow-x: hidden; }
+
+        /* 导航 */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem 8%; background: rgba(255, 255, 255, 0.95); 
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #EEE; backdrop-filter: blur(10px); 
+        }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { height: 48px; width: auto; }
+        .logo-text { font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: var(--fd-dark); }
+        .logo-text span { color: var(--dynamic-red); }
+        .lang-select { background: transparent; border: 1px solid #DDD; padding: 6px 16px; border-radius: 20px; cursor: pointer; }
+
+        /* 通用标题 */
+        .section-title { text-align: center; margin-bottom: 60px; padding: 0 8%; }
+        .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--fd-dark); margin-bottom: 15px; }
+        .section-title .line { width: 50px; height: 4px; background: var(--dynamic-red); margin: 0 auto; border-radius: 2px; }
+
+        /* 关于 & 服务 (保持之前的精美布局) */
+        .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .section-services { padding: 100px 8%; background: var(--fd-light-grey); }
+        .services-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 30px; }
+        .service-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); grid-column: span 2; transition: 0.3s; }
+        .service-card:nth-child(4) { grid-column: 2 / 4; }
+        .service-card:nth-child(5) { grid-column: 4 / 6; }
+        .service-img { width: 100%; height: 240px; object-fit: cover; }
+        .service-info { padding: 25px; }
+
+        /* --- 核心：客户见证滚动器 (Carousel) --- */
+        .section-reviews { padding: 100px 0; overflow: hidden; background: white; }
+        .carousel-container { position: relative; width: 85%; max-width: 1200px; margin: 0 auto; }
+        
+        .carousel-track-wrapper { overflow: hidden; border-radius: 24px; box-shadow: var(--card-shadow); }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+        
+        .review-slide { min-width: 100%; display: flex; background: white; align-items: stretch; }
+        .review-img-part { width: 45%; min-height: 450px; }
+        .review-img-part img { width: 100%; height: 100%; object-fit: cover; }
+        .review-text-part { width: 55%; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+        
+        .stars { color: #FFD700; margin-bottom: 20px; font-size: 1.2rem; }
+        .review-quote { font-size: 1.4rem; font-style: italic; line-height: 1.8; color: var(--fd-dark); margin-bottom: 30px; }
+        .reviewer-info { border-left: 4px solid var(--dynamic-red); padding-left: 20px; }
+        .reviewer-name { font-weight: 800; font-size: 1.2rem; color: var(--fd-dark); }
+        .reviewer-title { color: var(--text-sub); font-size: 0.9rem; margin-top: 5px; }
+
+        /* 滚动按钮 */
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: white; border: none; width: 50px; height: 50px; border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; z-index: 10;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+        }
+        .carousel-btn:hover { background: var(--dynamic-red); color: white; }
+        .btn-prev { left: -25px; }
+        .btn-next { right: -25px; }
+
+        /* 指示点 */
+        .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #DDD; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: var(--dynamic-red); width: 30px; border-radius: 5px; }
+
+        /* 联系我们 */
+        .section-contact { padding: 100px 8%; display: flex; gap: 60px; flex-wrap: wrap; background: var(--fd-dark); color: white; border-radius: 50px 50px 0 0; }
+        .contact-form { flex: 1.5; background: rgba(255,255,255,0.05); padding: 50px; border-radius: 24px; }
+        input, textarea { width: 100%; padding: 18px; margin-bottom: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 12px; }
+        .btn-submit { background: var(--dynamic-red); color: white; padding: 18px; border: none; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; }
+
+        @media (max-width: 992px) {
+            .review-slide { flex-direction: column; }
+            .review-img-part, .review-text-part { width: 100%; }
+            .review-img-part { min-height: 300px; }
+            .review-text-part { padding: 40px; }
+            .service-card { grid-column: span 3; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="logo-container">
+        <img src="logo.png" alt="FDI Logo" class="logo-img">
+        <div class="logo-text">FRONTIER <span>DYNAMICS</span></div>
+    </a>
+    <select class="lang-select" onchange="updateLang(this.value)">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="jp">日本語</option>
+        <option value="de">Deutsch</option>
+    </select>
+</nav>
+
+<section class="section-about">
+    <div style="flex:1; min-width:300px;">
+        <h2 id="about-title" style="color: var(--dynamic-red); font-size: 2.5rem; margin-bottom: 25px;"></h2>
+        <p id="about-text" style="font-size: 1.15rem; color: var(--text-sub);"></p>
+    </div>
+    <div style="flex:1; min-width:300px; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow);">
+        <img src="about-us.jpg" style="width:100%; display:block;">
+    </div>
+</section>
+
+<section class="section-services">
+    <div class="section-title">
+        <h2 id="serv-head"></h2>
+        <div class="line"></div>
+    </div>
+    <div class="services-grid" id="serv-content"></div>
+</section>
+
+<section class="section-reviews">
+    <div class="section-title">
+        <h2 id="review-title"></h2>
+        <div class="line"></div>
+    </div>
+    
+    <div class="carousel-container">
+        <button class="carousel-btn btn-prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn btn-next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        
+        <div class="carousel-track-wrapper">
+            <div class="carousel-track" id="review-track">
+                </div>
+        </div>
+        
+        <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+</section>
+
+<section class="section-contact">
+    <div class="contact-info">
+        <h2 id="contact-title" style="font-size: 2.5rem; margin-bottom: 20px;"></h2>
+        <p id="contact-lang-hint" style="color: #AAA; margin-bottom: 30px;"></p>
+        <div style="font-size: 1.2rem; color: var(--dynamic-red); font-weight: bold;">contact@fdi-corp.com</div>
+    </div>
+    <div class="contact-form">
+        <form onsubmit="return false;">
+            <input type="text" id="form-name">
+            <input type="email" id="form-email">
+            <textarea id="form-msg" rows="4"></textarea>
+            <button type="submit" class="btn-submit" id="form-btn"></button>
+        </form>
+    </div>
+</section>
+
 const i18n = {
         zh: {
             aboutT: "关于 FDI",
@@ -92,3 +257,6 @@ const i18n = {
             fName: "Name", fEmail: "E-Mail", fMsg: "Nachricht", fBtn: "Senden"
         }
     };
+</script>
+</body>
+</html>
