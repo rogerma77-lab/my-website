@@ -17,7 +17,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--fd-white); color: var(--text-main); overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--fd-white); color: var(--text-main); overflow-x: hidden; line-height: 1.6; }
 
         /* 导航 */
         nav { 
@@ -29,42 +29,48 @@
         .logo-img { height: 48px; width: auto; }
         .logo-text { font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: var(--fd-dark); }
         .logo-text span { color: var(--dynamic-red); }
-        .lang-select { background: transparent; border: 1px solid #DDD; padding: 6px 16px; border-radius: 20px; cursor: pointer; }
+        
+        .lang-select { background: transparent; border: 1px solid #DDD; padding: 6px 16px; border-radius: 20px; cursor: pointer; outline: none; transition: 0.3s; }
+        .lang-select:hover { border-color: var(--dynamic-red); }
 
         /* 通用标题 */
         .section-title { text-align: center; margin-bottom: 60px; padding: 0 8%; }
         .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--fd-dark); margin-bottom: 15px; }
         .section-title .line { width: 50px; height: 4px; background: var(--dynamic-red); margin: 0 auto; border-radius: 2px; }
 
-        /* 关于 & 服务 (保持之前的精美布局) */
+        /* 关于我们 */
         .section-about { padding: 80px 8%; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+        .about-content { flex: 1; min-width: 300px; }
+        .about-image { flex: 1; min-width: 300px; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); }
+        .about-image img { width: 100%; display: block; }
+
+        /* 服务范围 3+2 布局 */
         .section-services { padding: 100px 8%; background: var(--fd-light-grey); }
         .services-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 30px; }
-        .service-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); grid-column: span 2; transition: 0.3s; }
+        .service-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); grid-column: span 2; transition: 0.4s; }
         .service-card:nth-child(4) { grid-column: 2 / 4; }
         .service-card:nth-child(5) { grid-column: 4 / 6; }
+        .service-card:hover { transform: translateY(-10px); }
         .service-img { width: 100%; height: 240px; object-fit: cover; }
         .service-info { padding: 25px; }
+        .service-info h3 { margin-bottom: 10px; font-size: 1.3rem; color: var(--fd-dark); }
+        .service-info p { font-size: 0.95rem; color: var(--text-sub); }
 
-        /* --- 核心：客户见证滚动器 (Carousel) --- */
+        /* 客户见证 Carousel */
         .section-reviews { padding: 100px 0; overflow: hidden; background: white; }
         .carousel-container { position: relative; width: 85%; max-width: 1200px; margin: 0 auto; }
-        
-        .carousel-track-wrapper { overflow: hidden; border-radius: 24px; box-shadow: var(--card-shadow); }
+        .carousel-track-wrapper { overflow: hidden; border-radius: 24px; box-shadow: var(--card-shadow); background: white; }
         .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-        
-        .review-slide { min-width: 100%; display: flex; background: white; align-items: stretch; }
+        .review-slide { min-width: 100%; display: flex; align-items: stretch; }
         .review-img-part { width: 45%; min-height: 450px; }
         .review-img-part img { width: 100%; height: 100%; object-fit: cover; }
-        .review-text-part { width: 55%; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        
-        .stars { color: #FFD700; margin-bottom: 20px; font-size: 1.2rem; }
-        .review-quote { font-size: 1.4rem; font-style: italic; line-height: 1.8; color: var(--fd-dark); margin-bottom: 30px; }
+        .review-text-part { width: 55%; padding: 60px; display: flex; flex-direction: column; justify-content: center; background: white; }
+        .stars { color: #FFD700; margin-bottom: 20px; }
+        .review-quote { font-size: 1.3rem; font-style: italic; line-height: 1.8; color: var(--fd-dark); margin-bottom: 30px; }
         .reviewer-info { border-left: 4px solid var(--dynamic-red); padding-left: 20px; }
-        .reviewer-name { font-weight: 800; font-size: 1.2rem; color: var(--fd-dark); }
-        .reviewer-title { color: var(--text-sub); font-size: 0.9rem; margin-top: 5px; }
+        .reviewer-name { font-weight: 800; font-size: 1.1rem; color: var(--fd-dark); }
+        .reviewer-title { color: var(--text-sub); font-size: 0.85rem; }
 
-        /* 滚动按钮 */
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: white; border: none; width: 50px; height: 50px; border-radius: 50%;
@@ -75,23 +81,30 @@
         .btn-prev { left: -25px; }
         .btn-next { right: -25px; }
 
-        /* 指示点 */
         .carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; background: #DDD; cursor: pointer; transition: 0.3s; }
         .dot.active { background: var(--dynamic-red); width: 30px; border-radius: 5px; }
 
         /* 联系我们 */
         .section-contact { padding: 100px 8%; display: flex; gap: 60px; flex-wrap: wrap; background: var(--fd-dark); color: white; border-radius: 50px 50px 0 0; }
+        .contact-info { flex: 1; }
         .contact-form { flex: 1.5; background: rgba(255,255,255,0.05); padding: 50px; border-radius: 24px; }
-        input, textarea { width: 100%; padding: 18px; margin-bottom: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 12px; }
-        .btn-submit { background: var(--dynamic-red); color: white; padding: 18px; border: none; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; }
+        input, textarea { width: 100%; padding: 18px; margin-bottom: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 12px; outline: none; }
+        input:focus, textarea:focus { border-color: var(--dynamic-red); }
+        .btn-submit { background: var(--dynamic-red); color: white; padding: 18px; border: none; border-radius: 40px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; transition: 0.3s; }
+        .btn-submit:hover { background: #FF4D5B; transform: scale(1.02); }
 
         @media (max-width: 992px) {
             .review-slide { flex-direction: column; }
             .review-img-part, .review-text-part { width: 100%; }
             .review-img-part { min-height: 300px; }
-            .review-text-part { padding: 40px; }
             .service-card { grid-column: span 3; }
+            .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 3; }
+        }
+        @media (max-width: 600px) {
+            .service-card { grid-column: span 6; }
+            .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 6; }
+            .section-title h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -102,7 +115,7 @@
         <img src="logo.png" alt="FDI Logo" class="logo-img">
         <div class="logo-text">FRONTIER <span>DYNAMICS</span></div>
     </a>
-    <select class="lang-select" onchange="updateLang(this.value)">
+    <select class="lang-select" id="langSwitcher">
         <option value="zh">中文</option>
         <option value="en">English</option>
         <option value="jp">日本語</option>
@@ -111,12 +124,12 @@
 </nav>
 
 <section class="section-about">
-    <div style="flex:1; min-width:300px;">
+    <div class="about-content">
         <h2 id="about-title" style="color: var(--dynamic-red); font-size: 2.5rem; margin-bottom: 25px;"></h2>
         <p id="about-text" style="font-size: 1.15rem; color: var(--text-sub);"></p>
     </div>
-    <div style="flex:1; min-width:300px; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow);">
-        <img src="about-us.jpg" style="width:100%; display:block;">
+    <div class="about-image">
+        <img src="about-us.jpg" alt="About FDI">
     </div>
 </section>
 
@@ -133,16 +146,12 @@
         <h2 id="review-title"></h2>
         <div class="line"></div>
     </div>
-    
     <div class="carousel-container">
-        <button class="carousel-btn btn-prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-        <button class="carousel-btn btn-next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
-        
+        <button class="carousel-btn btn-prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn btn-next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         <div class="carousel-track-wrapper">
-            <div class="carousel-track" id="review-track">
-                </div>
+            <div class="carousel-track" id="review-track"></div>
         </div>
-        
         <div class="carousel-dots" id="carousel-dots"></div>
     </div>
 </section>
@@ -154,7 +163,7 @@
         <div style="font-size: 1.2rem; color: var(--dynamic-red); font-weight: bold;">contact@fdi-corp.com</div>
     </div>
     <div class="contact-form">
-        <form onsubmit="return false;">
+        <form>
             <input type="text" id="form-name">
             <input type="email" id="form-email">
             <textarea id="form-msg" rows="4"></textarea>
@@ -163,7 +172,8 @@
     </div>
 </section>
 
-const i18n = {
+<script>
+    const i18n = {
         zh: {
             aboutT: "关于 FDI",
             aboutX: "前沿动力国际 (FDI) 是一家全球领先的新能源商用车整合方案提供商。我们将中国顶尖供应链与德国尖端工程技术相结合，为全球物流企业提供从选型到售后的全生命周期支持。",
@@ -172,91 +182,4 @@ const i18n = {
                 {t: "商用车选型顾问", p: "基于 TCO 测算与场景分析，提供最优车型配置方案。", img: "serv1.jpg"},
                 {t: "车队升级计划", p: "定制化置换方案，助力企业快速完成新能源转型。", img: "serv2.jpg"},
                 {t: "金融与交付支持", p: "融资租赁建议与标准化交付流程，加速资产入场。", img: "serv3.jpg"},
-                {t: "备件及维保服务", p: "全球备件供应体系，确保车辆极高出勤率。", img: "serv4.jpg"},
-                {t: "数字化运营支持", p: "车联网平台对接，实现车队能耗与效率实时监控。", img: "serv5.jpg"}
-            ],
-            revT: "客户见证",
-            revs: [
-                {p: "EVE 的 8 分钟换电技术彻底改变了我们的城市配送效率。FDI 的专业支持让转型变得异常简单。", n: "Hans Müller", t: "物流主管 (德国)", img: "review1.jpg"},
-                {p: "JAC 电车在日本狭窄街区的表现超出预期，可靠性极佳。FDI 是值得信赖的合作伙伴。", n: "Sato Kenji", t: "运营总监 (日本)", img: "review2.jpg"},
-                {p: "我们做干线运输，团队给出的 TCO 分析很清晰，最终选型后能源消耗与出勤率都有明显改善。", n: "Alejandro G.", t: "物流公司车队负责人 (墨西哥)", img: "review3.jpg"},
-                {p: "从融资方案到上牌交付一条线推进，沟通高效、细节到位，让我们扩充车队的决策更果断。", n: "Julien B.", t: "园区运营企业负责人 (法国)", img: "review4.jpg"},
-                {p: "工程项目工期紧，他们根据非洲复杂工况推荐配置并协调交付，车辆到场即投入使用，非常专业。", n: "Amara K.", t: "工程项目采购经理 (肯尼亚)", img: "review5.jpg"}
-            ],
-            conT: "开启协作",
-            conH: "我们的国际化团队支持四国语言，随时为您提供定制化方案。",
-            fName: "姓名", fEmail: "邮箱地址", fMsg: "您想了解什么？", fBtn: "即刻获取方案"
-        },
-        en: {
-            aboutT: "About FDI",
-            aboutX: "Frontier Dynamics International (FDI) is a global leader in NEV commercial vehicle integration, merging China's supply chain with German engineering.",
-            servH: "Our Services",
-            servs: [
-                {t: "Procurement Consulting", p: "TCO-based model selection for optimal fleet performance.", img: "serv1.jpg"},
-                {t: "Fleet Modernization", p: "Custom replacement schemes for rapid NEV transition.", img: "serv2.jpg"},
-                {t: "Finance & Logistics", p: "Leasing advice and streamlined delivery workflows.", img: "serv3.jpg"},
-                {t: "Maintenance & Parts", p: "Global spare parts network ensuring maximum uptime.", img: "serv4.jpg"},
-                {t: "Digital Ops Support", p: "Telematics integration for energy monitoring.", img: "serv5.jpg"}
-            ],
-            revT: "Global Testimonials",
-            revs: [
-                {p: "EVE's 8-minute swap technology redefined our efficiency. FDI made the transition seamless.", n: "Hans Müller", t: "Logistics Head (Germany)", img: "review1.jpg"},
-                {p: "JAC trucks excel in Japan's tight urban areas. FDI is a reliable strategic partner.", n: "Sato Kenji", t: "Ops Director (Japan)", img: "review2.jpg"},
-                {p: "The TCO analysis provided was clear and precise. Our energy consumption and uptime have significantly improved.", n: "Alejandro G.", t: "Fleet Manager (Mexico)", img: "review3.jpg"},
-                {p: "Efficient financing and delivery coordination allowed us to expand our fleet with full confidence.", n: "Julien B.", t: "Park Operations Manager (France)", img: "review4.jpg"},
-                {p: "Professional configuration recommendations tailored for complex local conditions ensured immediate project success.", n: "Amara K.", t: "Procurement Manager (Kenya)", img: "review5.jpg"}
-            ],
-            conT: "Contact Us",
-            conH: "Our multilingual team is ready to assist you worldwide.",
-            fName: "Name", fEmail: "Email", fMsg: "Message", fBtn: "Send Inquiry"
-        },
-        jp: {
-            aboutT: "FDIについて",
-            aboutX: "中国のサプライチェーンとドイツの技術を融合させた、次世代商用電気自動車のグローバルリーダーです。",
-            servH: "サービス",
-            servs: [
-                {t: "車両選定・調達コンサル", p: "TCO算出に基づき、最適な車種構成や調達戦略を提案します。", img: "serv1.jpg"},
-                {t: "フリート更新計画", p: "段階的なEVシフト案を策定し、維持コストを削減します。", img: "serv2.jpg"},
-                {t: "金融・納車サポート", p: "リース等の提案、登録・納車フローの調整を行い、稼働を加速させます。", img: "serv3.jpg"},
-                {t: "アフターサービス", p: "スペアパーツ供給、保守計画により、車両の稼働率を向上させます。", img: "serv4.jpg"},
-                {t: "DX運営サポート", p: "車両データ連携により、エネルギー効率の可視化を実現します。", img: "serv5.jpg"}
-            ],
-            revT: "お客様の声",
-            revs: [
-                {p: "EVEの8分間バッテリー交換技術は、物流の効率を劇的に向上させました。", n: "Hans Müller", t: "物流責任者 (ドイツ)", img: "review1.jpg"},
-                {p: "JACのEVトラックは日本の狭い道路でも優れた性能を発揮します。", n: "佐藤 健二", t: "運営ディレクター (日本)", img: "review2.jpg"},
-                {p: "明確なTCO分析により、燃費と稼働率が大幅に改善されました。メキシコでの成功の鍵です。", n: "Alejandro G.", t: "フリートマネージャー (メキシコ)", img: "review3.jpg"},
-                {p: "融資から納車まで一貫したサポートにより、迅速な意思決定が可能になりました。", n: "Julien B.", t: "パーク運営責任者 (フランス)", img: "review4.jpg"},
-                {p: "専門的な提案と迅速な納車で、ケニアでのプロジェクトを成功に導いてくれました。", n: "Amara K.", t: "購買マネージャー (ケニア)", img: "review5.jpg"}
-            ],
-            conT: "お問い合わせ",
-            conH: "4ヶ国語に対応しており、グローバルな協力をサポートします。",
-            fName: "お名前", fEmail: "メール", fMsg: "内容", fBtn: "送信"
-        },
-        de: {
-            aboutT: "Über FDI",
-            aboutX: "Führender Anbieter für NEV-Nutzfahrzeuge, der deutsche Ingenieurskunst mit chinesischer Produktion vereint.",
-            servH: "Leistungen",
-            servs: [
-                {t: "Beschaffungsberatung", p: "TCO-basierte Modellkonfiguration zur Maximierung Ihres ROI.", img: "serv1.jpg"},
-                {t: "Flottenmodernisierung", p: "Individuelle Austauschpläne für einen schnellen NEV-Umstieg.", img: "serv2.jpg"},
-                {t: "Finanzierung & Logistik", p: "Leasingberatung und Koordination der Zulassung.", img: "serv3.jpg"},
-                {t: "Wartung & Ersatzteile", p: "Globales Ersatzteilnetzwerk für maximale Fahrzeugverfügbarkeit.", img: "serv4.jpg"},
-                {t: "Digitale Unterstützung", p: "Telematik-Integration zur Überwachung der Effizienz.", img: "serv5.jpg"}
-            ],
-            revT: "Kundenstimmen",
-            revs: [
-                {p: "Die 8-Minuten-Wechseltechnologie von EVE hat unsere Effizienz neu definiert.", n: "Hans Müller", t: "Logistikleiter (Deutschland)", img: "review1.jpg"},
-                {p: "JAC Elektro-Lkw überzeugen in Japans engen Städten. FDI ist ein verlässlicher Partner.", n: "Sato Kenji", t: "Operations Director (Japan)", img: "review2.jpg"},
-                {p: "Die klare TCO-Analyse hat unseren Energieverbrauch spürbar gesenkt. Top-Leistung in Mexiko.", n: "Alejandro G.", t: "Flottenmanager (Mexiko)", img: "review3.jpg"},
-                {p: "Hocheffiziente Kommunikation und Finanzplanung haben unsere Flotte in Frankreich gestärkt.", n: "Julien B.", t: "Betriebsleiter (Frankreich)", img: "review4.jpg"},
-                {p: "Professionelle Konfigurationen für lokale Bedingungen sicherten unseren Projekterfolg in Kenia.", n: "Amara K.", t: "Einkaufsleiterin (Kenia)", img: "review5.jpg"}
-            ],
-            conT: "Kontakt",
-            conH: "Unser Team unterstützt 4 Sprachen für eine reibungslose Zusammenarbeit.",
-            fName: "Name", fEmail: "E-Mail", fMsg: "Nachricht", fBtn: "Senden"
-        }
-    };
-</script>
-</body>
-</html>
+                {t: "备件及维保服务
